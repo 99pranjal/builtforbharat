@@ -1,0 +1,65 @@
+#include <iostream>
+#include <unordered_set>
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
+
+class Merchant {
+    unordered_set<int> serviceablePincodes;
+
+public:
+
+    // Default constructor
+    Merchant() {}
+
+    Merchant(vector<int>& pincodes) {
+        serviceablePincodes.insert(pincodes.begin(), pincodes.end());
+    }
+
+    bool isServiceable(int pincode)  {
+        return serviceablePincodes.find(pincode) != serviceablePincodes.end();
+    }
+};
+
+class MerchantService {
+    
+    unordered_map<int, Merchant> merchants;
+    
+public:
+
+    void addMerchant(int merchantId,  vector<int>& pincodes) {
+        merchants[merchantId] = Merchant(pincodes);
+    }
+
+    bool isPincodeServiceable(int merchantId, int pincode)  {
+        auto it = merchants.find(merchantId);
+        if (it != merchants.end()) {
+            return it->second.isServiceable(pincode);
+        }
+        return false;  
+    }
+};
+
+int main() {
+    MerchantService merchantService;
+
+    // Add merchants with their serviceable pincodes
+    vector<int> merchant_1_pincodes{1001, 1002, 1003};
+    vector<int> merchant_2_pincodes{2001, 2002, 2003};
+    
+    merchantService.addMerchant(1, merchant_1_pincodes);
+    merchantService.addMerchant(2, merchant_2_pincodes);
+
+    // Test cases
+    int pincodeToCheck = 1002;
+    int merchantId = 1;
+
+    if (merchantService.isPincodeServiceable(merchantId, pincodeToCheck)) {
+        cout << "Pincode " << pincodeToCheck << " is serviceable by Merchant " << merchantId << endl;
+    } else {
+        cout << "Pincode " << pincodeToCheck << " is not serviceable by Merchant " << merchantId << endl;
+    }
+
+    return 0;
+}
