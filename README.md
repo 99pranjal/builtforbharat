@@ -6,7 +6,7 @@ The Merchant class represents a merchant and contains a set of serviceable pinco
 
 The isServiceable function checks if a given pincode is present in the serviceablePincodes set. It returns true if the pincode is serviceable by the merchant, and false otherwise.
 
-**MerchantService Class**
+**MerchantService Class*
 The MerchantService class manages a collection of merchants using an unordered map. Each merchant is associated with a unique merchant ID. The addMerchant function allows merchants to be added to the merchants map by providing their merchant ID and a vector of serviceable pincodes.
 
 The isPincodeServiceable function checks if a given pincode is serviceable by a specific merchant. It first searches for the merchant in the merchants map using the provided merchant ID. If the merchant is found, it calls the isServiceable function of the corresponding Merchant object to check if the pincode is serviceable. If the merchant is not found, it returns false.
